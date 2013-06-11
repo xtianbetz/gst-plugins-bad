@@ -90,7 +90,10 @@ GstSurfaceConverter *
 gst_surface_meta_create_converter (GstSurfaceMeta * meta,
     const gchar * type, GValue * dest)
 {
-  g_return_val_if_fail (meta != NULL, FALSE);
+  g_return_val_if_fail (meta != NULL, NULL);
 
-  return meta->create_converter (meta, type, dest);
+  if (meta->create_converter)
+    return meta->create_converter (meta, type, dest);
+
+  return NULL;
 }
